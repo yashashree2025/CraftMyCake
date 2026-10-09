@@ -114,7 +114,3 @@ Open the local development URL displayed in the terminal, usually `http://127.0.
 **Yashashree Parte**
 
 GitHub: https://github.com/yashashree2025
-
-## License
-
-Add a license if you intend to distribute the project under specific reuse terms.
