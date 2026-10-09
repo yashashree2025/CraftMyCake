@@ -1,0 +1,111 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Favorite Cakes | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="profile-section py-5">
+
+<div class="container">
+
+    <div class="row">
+
+        <!-- Left Sidebar -->
+        <div class="col-lg-4">
+
+            {% include 'profile_sidebar.html' %}
+
+        </div>
+
+        <!-- Right Content -->
+        <div class="col-lg-8">
+
+            <div class="text-center mb-5">
+
+                <h1 class="dashboard-title">
+                    ❤️ My Favorite Cakes
+                </h1>
+
+                <p>
+                    Cakes you've added to your favorites.
+                </p>
+
+            </div>
+
+            {% if favorites %}
+
+            <div class="row">
+
+                {% for cake in favorites %}
+
+                <div class="col-md-6 mb-4">
+
+                    <div class="card shadow h-100">
+
+                        {% if cake.image %}
+
+                        <img src="/media/{{ cake.image }}"
+                             class="card-img-top"
+                             style="height:250px; object-fit:cover;">
+
+                        {% else %}
+
+                        <div class="text-center py-5" style="font-size:80px;">
+                            🎂
+                        </div>
+
+                        {% endif %}
+
+                        <div class="card-body">
+
+                            <h5 class="card-title">
+                                {{ cake.cake_name }}
+                            </h5>
+
+                            <h4 class="text-pink">
+                                ₹{{ cake.price }}
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <div class="alert alert-info text-center">
+
+                <h4>
+                    ❤️ No Favorite Cakes Yet
+                </h4>
+
+                <p>
+                    You haven't added any cakes to your favorites.
+                </p>
+
+                <a href="{% url 'shop' %}"
+                   class="btn btn-pink">
+
+                    Browse Cakes
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+{% endblock %}

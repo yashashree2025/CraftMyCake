@@ -1,0 +1,134 @@
+
+{% extends 'base.html' %}
+
+{% block title %}My Orders | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="profile-section py-5">
+
+<div class="container">
+
+    <div class="row">
+
+        <!-- Left Sidebar -->
+        <div class="col-lg-4">
+            {% include 'profile_sidebar.html' %}
+        </div>
+
+        <!-- Right Content -->
+        <div class="col-lg-8">
+
+            <div class="text-center mb-5">
+
+                <h1 class="dashboard-title">
+                    📦 My Orders
+                </h1>
+
+                <p>View all your cake orders</p>
+
+            </div>
+
+            {% if orders %}
+
+                {% for order in orders %}
+
+                <div class="card shadow-sm mb-4">
+
+                    <div class="card-body">
+
+                        <div class="row align-items-center">
+
+                            <div class="col-md-3">
+                                <h5>Order ID</h5>
+                                <p>#{{ order.id }}</p>
+                            </div>
+
+                            <div class="col-md-3">
+                                <h5>Order Date</h5>
+                                <p>{{ order.order_date }}</p>
+                            </div>
+
+                            <div class="col-md-2">
+                                <h5>Total</h5>
+                                <p>₹{{ order.total }}</p>
+                            </div>
+
+                            <div class="col-md-2">
+                                <h5>Status</h5>
+
+                                {% if order.status == "Delivered" %}
+                                    <span class="badge bg-success">{{ order.status }}</span>
+
+                                {% elif order.status == "Pending" %}
+                                    <span class="badge bg-warning text-dark">{{ order.status }}</span>
+
+                                {% elif order.status == "Cancelled" %}
+                                    <span class="badge bg-danger">{{ order.status }}</span>
+
+                                {% else %}
+                                    <span class="badge bg-primary">{{ order.status }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-2 text-end">
+                                <a href="{% url 'order_tracking' order.id %}"
+                                   class="btn btn-pink">
+                                    Track Order
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <hr>
+
+                        <h6>Cakes Ordered</h6>
+
+                        <ul class="mb-0">
+
+                            {% for item in order.items %}
+
+                            <li>
+                                {{ item.cake_name }}
+                                ({{ item.weight }})
+                                × {{ item.quantity }}
+                                - ₹{{ item.total }}
+                            </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="alert alert-info text-center">
+
+                    <h4>No Orders Yet</h4>
+
+                    <p>You haven't placed any order.</p>
+
+                    <a href="{% url 'shop' %}"
+                       class="btn btn-pink">
+                        Shop Cakes
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+{% endblock %}
+

@@ -1,0 +1,56 @@
+
+<div class="profile-card">
+
+    <div class="text-center">
+
+        <div class="profile-avatar">
+            👩
+        </div>
+
+        <h3 class="mt-3">{{ user.fullname }}</h3>
+
+        <p class="text-muted">{{ user.email }}</p>
+
+    </div>
+
+    <hr>
+
+    <div class="profile-menu">
+
+        <a href="{% url 'profile' %}"
+           class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+            👤 My Profile
+        </a>
+
+        <a href="{% url 'my_orders' %}"
+           class="{% if request.resolver_match.url_name == 'my_orders' %}active{% endif %}">
+            📦 My Orders
+        </a>
+
+        <a href="{% url 'my_custom_requests' %}"
+           class="{% if request.resolver_match.url_name == 'my_custom_requests' %}active{% endif %}">
+            🎂 My Custom Requests
+        </a>
+
+        <a href="{% url 'favorite_cakes' %}"
+           class="{% if request.resolver_match.url_name == 'favorite_cakes' %}active{% endif %}">
+            ❤️ Favorite Cakes
+        </a>
+
+        <a href="{% url 'saved_address' %}"
+        {% if request.resolver_match.url_name == 'saved_address' %}
+        class="active"
+        {% endif %}>
+            📍 Saved Address
+        </a>
+
+        <hr>
+
+        <a href="{% url 'logout_user' %}" class="text-danger">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+

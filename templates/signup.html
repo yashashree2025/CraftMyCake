@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+
+{% block title %}Signup | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="signup-section py-5">
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="signup-card p-4 shadow rounded bg-white">
+
+                <div class="text-center mb-4">
+                    <h2>Create Account 🎂</h2>
+                    <p>Join CraftMyCake and order delicious cakes</p>
+                </div>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <!-- Full Name -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Full Name
+                        </label>
+
+                        <input type="text"
+                               class="form-control"
+                               name="fullname"
+                               placeholder="Enter your name"
+                               required>
+
+                    </div>
+
+                    <!-- Email -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Email Address
+                        </label>
+
+                        <input type="email"
+                               class="form-control"
+                               name="email"
+                               placeholder="Enter your email"
+                               required>
+
+                    </div>
+
+                    <!-- Phone -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Phone Number
+                        </label>
+
+                        <input type="tel"
+                               class="form-control"
+                               name="phone"
+                               placeholder="Enter 10 Digit Phone Number"
+                               maxlength="10"
+                               pattern="[0-9]{10}"
+                               oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+                               required>
+
+                        <small class="text-muted">
+                            Enter exactly 10 digits.
+                        </small>
+
+                    </div>
+
+                    <!-- Role Selection -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Choose Account Type
+                        </label>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <label class="role-card border p-3 rounded w-100">
+
+                                    <input type="radio"
+                                           name="role"
+                                           value="customer"
+                                           required>
+
+                                    <h5 class="mt-2">
+                                        🎂 Customer
+                                    </h5>
+
+                                    <p>
+                                        Order cakes and customize designs
+                                    </p>
+
+                                </label>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="role-card border p-3 rounded w-100">
+
+                                    <input type="radio"
+                                           name="role"
+                                           value="vendor">
+
+                                    <h5 class="mt-2">
+                                        🏪 Vendor
+                                    </h5>
+
+                                    <p>
+                                        Sell cakes and manage bakery
+                                    </p>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Password -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <div class="input-group">
+
+                            <input type="password"
+                                   id="password"
+                                   class="form-control"
+                                   name="password"
+                                   placeholder="Create password"
+                                   minlength="6"
+                                   required>
+
+                            <button type="button"
+                                    class="btn btn-outline-secondary"
+                                    onclick="togglePassword()">
+
+                                👁
+
+                            </button>
+
+                        </div>
+
+                        <small class="text-muted">
+                            Password must be at least 6 characters.
+                        </small>
+
+                    </div>
+
+                    <!-- Confirm Password -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Confirm Password
+                        </label>
+
+                        <div class="input-group">
+
+                            <input type="password"
+                                   id="confirm_password"
+                                   class="form-control"
+                                   name="confirm_password"
+                                   placeholder="Confirm password"
+                                   required>
+
+                            <button type="button"
+                                    class="btn btn-outline-secondary"
+                                    onclick="toggleConfirmPassword()">
+
+                                👁
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Submit -->
+
+                    <button type="submit"
+                            class="btn btn-pink w-100">
+
+                        Create Account
+
+                    </button>
+
+                </form>
+
+                <div class="text-center mt-4">
+
+                    Already have an account?
+
+                    <a href="/login/"
+                    class="signup-link">
+                     Login Here
+                    </a>
+
+                        Login Here
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+<script>
+
+function togglePassword() {
+
+    let password =
+        document.getElementById("password");
+
+    if(password.type === "password") {
+
+        password.type = "text";
+
+    } else {
+
+        password.type = "password";
+
+    }
+
+}
+
+function toggleConfirmPassword() {
+
+    let confirmPassword =
+        document.getElementById("confirm_password");
+
+    if(confirmPassword.type === "password") {
+
+        confirmPassword.type = "text";
+
+    } else {
+
+        confirmPassword.type = "password";
+
+    }
+
+}
+
+</script>
+
+{% endblock %}

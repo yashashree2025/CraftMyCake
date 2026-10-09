@@ -1,0 +1,226 @@
+{% extends 'vendor_base.html' %}
+
+{% block title %}Add Cake | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="vendor-section">
+
+<div class="container">
+
+<div class="add-cake-card">
+
+<div class="text-center mb-4">
+
+<h1 class="dashboard-title">
+🎂 Add New Cake
+</h1>
+
+<p>
+Add delicious cakes to your shop
+</p>
+
+</div>
+
+<form method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Cake Name
+</label>
+
+<input type="text"
+    name="cake_name"
+    class="form-control"
+    placeholder="Chocolate Truffle Cake"
+    required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Category
+</label>
+
+<select name="category"
+     class="form-control">
+
+<option value="Birthday Cake">Birthday Cake</option>
+
+<option value="Anniversary Cake">Anniversary Cake</option>
+
+<option value="Wedding Cake">Wedding Cake</option>
+
+<option value="Photo Cake">Photo Cake</option>
+
+<option value="Custom Cake">Custom Cake</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Flavor
+</label>
+
+<select name="flavor"
+     class="form-control">
+
+<option value="Chocolate">Chocolate</option>
+
+<option value="Vanilla">Vanilla</option>
+
+<option value="Strawberry">Strawberry</option>
+
+<option value="Black Forest">Black Forest</option>
+
+<option value="Butterscotch">Butterscotch</option>
+
+<option value="Red Velvet">Red Velvet</option>
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Weight
+</label>
+
+<select name="weight"
+     class="form-control">
+
+<option value="500 gm">500 gm</option>
+
+<option value="1 Kg">1 Kg</option>
+
+<option value="2 Kg">2 Kg</option>
+
+<option value="3 Kg">3 Kg</option>
+
+<option value="5 Kg">5 Kg</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Price (₹)
+</label>
+
+<input type="number"
+    name="price"
+    class="form-control"
+    placeholder="799"
+    required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Stock Quantity
+</label>
+
+<input type="number"
+    name="stock"
+    class="form-control"
+    placeholder="10">
+
+</div>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+Cake Description
+</label>
+
+<textarea
+name="description"
+class="form-control"
+rows="5"
+placeholder="Enter cake description"></textarea>
+
+</div>
+
+<div class="mb-3">
+
+    <label class="form-label">
+        Upload Cake Image
+    </label>
+
+    <input type="file"
+           name="image"
+           class="form-control">
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+Availability
+</label>
+
+<select name="availability"
+     class="form-control">
+
+<option value="Available">
+Available
+</option>
+
+<option value="Out Of Stock">
+Out Of Stock
+</option>
+
+</select>
+
+</div>
+
+<div class="text-center mt-4">
+
+<button type="submit"
+     class="btn btn-pink btn-lg">
+
+Save Cake 🎂
+
+</button>
+
+<a href="{% url 'manage_cakes' %}"
+class="btn btn-outline-pink btn-lg">
+
+Back
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

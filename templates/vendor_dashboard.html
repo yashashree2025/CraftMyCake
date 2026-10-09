@@ -1,0 +1,203 @@
+{% extends 'vendor_base.html' %}
+
+{% block title %}Vendor Dashboard{% endblock %}
+
+{% block content %}
+
+<h1 class="dashboard-title">
+    Vendor Dashboard
+</h1>
+
+<!-- DASHBOARD CARDS -->
+
+<div class="row">
+
+    <div class="col-md-3">
+        <div class="dashboard-card">
+            <h2>{{ orders|length }}</h2>
+            <p>Total Orders</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-card">
+            <h2>{{ pending_orders }}</h2>
+            <p>Pending Orders</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-card">
+            <h2>{{ custom_requests|length }}</h2>
+            <p>Custom Requests</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-card">
+            <h2>🍰</h2>
+            <p>Manage Cakes</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- RECENT ORDERS -->
+
+<div class="vendor-table mt-5">
+
+    <h3>Recent Orders</h3>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+                <th>Customer</th>
+                <th>Total</th>
+                <th>Status</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% if orders %}
+
+            {% for order in orders %}
+
+            <tr>
+
+                <td>{{ order.customer_name }}</td>
+
+                <td>₹{{ order.total }}</td>
+
+                <td>{{ order.status }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <tr>
+
+                <td colspan="3" class="text-center">
+                    No Orders Available
+                </td>
+
+            </tr>
+
+        {% endif %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- CUSTOM REQUESTS -->
+
+<div class="custom-request mt-5" id="custom-requests">
+
+    <h3>Latest Custom Cake Requests</h3>
+
+    {% if custom_requests %}
+
+        {% for req in custom_requests %}
+
+        <div class="request-box border rounded p-3 mb-4">
+
+            <h5>{{ req.customer_name }}</h5>
+
+            <p><strong>Occasion:</strong> {{ req.occasion }}</p>
+
+            <p><strong>Theme:</strong> {{ req.theme }}</p>
+
+            <p><strong>Flavor:</strong> {{ req.flavor }}</p>
+
+            <p><strong>Weight:</strong> {{ req.weight }}</p>
+
+            <p><strong>Budget:</strong> ₹{{ req.budget }}</p>
+
+            <p><strong>Delivery Date:</strong> {{ req.delivery_date }}</p>
+
+            <p><strong>Status:</strong> {{ req.status }}</p>
+
+            {% if req.reference_image %}
+
+                <img src="/media/{{ req.reference_image }}"
+                     class="img-thumbnail mb-3"
+                     width="180">
+
+            {% endif %}
+
+            {% if req.status == "Pending" %}
+
+            <form method="POST"
+                  action="{% url 'update_custom_request' req.id %}">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+
+                    <label>Vendor Price</label>
+
+                    <input type="number"
+                           name="price"
+                           class="form-control"
+                           required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Status</label>
+
+                    <select name="status"
+                            class="form-select">
+
+                        <option value="Accepted">Accept</option>
+
+                        <option value="Rejected">Reject</option>
+
+                    </select>
+
+                </div>
+
+                <button class="btn btn-success">
+
+                    Save
+
+                </button>
+
+            </form>
+
+            {% else %}
+
+                <div class="alert alert-info">
+
+                    Status :
+                    <strong>{{ req.status }}</strong>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="alert alert-warning">
+
+            No Custom Cake Requests Available.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

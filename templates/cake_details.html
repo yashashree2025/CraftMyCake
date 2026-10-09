@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block title %}Cake Details | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="cake-details-section">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <!-- Cake Image -->
+            <div class="col-lg-6">
+
+                <div class="cake-image-box">
+
+                   {% if cake.image %}
+                   <img src="/media/{{ cake.image }}"
+                   class="img-fluid rounded"
+                   style="width:100%;">
+                   {% else %}
+                   <div class="cake-image-placeholder">
+                     🎂
+                   </div>
+                   {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- Cake Information -->
+            <div class="col-lg-6">
+
+                <div class="cake-info">
+
+                    <span class="cake-category">
+                        Best Seller
+                    </span>
+
+                    <h1>{{ cake.cake_name }}</h1>
+
+                    <div class="rating">
+                        ⭐⭐⭐⭐⭐
+                        <span>(245 Reviews)</span>
+                    </div>
+
+                    <h2 class="cake-price">
+                    ₹{{ cake.price }}
+                    </h2>
+
+                    <p class="cake-description">
+                    {{ cake.description }}
+                    </p>
+
+                    <!-- Weight -->
+                    <div class="option-box">
+
+                        <label>Choose Weight</label>
+
+                        <select class="form-select">
+                        <option>{{ cake.weight }}</option>
+                        </select>
+
+                    </div>
+
+                    <!-- Flavor -->
+                    <div class="option-box">
+
+                        <label>Choose Flavor</label>
+
+                        <select class="form-select">
+                        <option>{{ cake.flavor }}</option>
+                        </select>
+
+                    </div>
+
+                    <!-- Quantity -->
+                    <div class="option-box">
+
+                        <label>Quantity</label>
+
+                        <input type="number"
+                               value="1"
+                               min="1"
+                               class="form-control">
+
+                    </div>
+
+                    <!-- Custom Message -->
+
+                    <div class="option-box">
+
+                        <label>Message On Cake</label>
+
+                        <textarea class="form-control"
+                                  rows="3"
+                                  placeholder="Happy Birthday Yashashree">
+                        </textarea>
+
+                    </div>
+
+                    <form method="POST" action="{% url 'add_to_cart' cake.id %}">
+                    {% csrf_token %}
+
+                    <div class="cake-buttons">
+
+                   <button type="submit" class="btn btn-pink btn-lg">
+                  Add To Cart
+                  </button>
+
+                  <button type="button" class="btn btn-outline-pink btn-lg">
+                    Buy Now
+                 </button>
+
+                  </div>
+
+                 </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Reviews -->
+
+<section class="reviews-section">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            Customer Reviews
+        </h2>
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="review-card">
+
+                    <h5>Priya Sharma</h5>
+
+                    <p>
+                        ⭐⭐⭐⭐⭐
+                    </p>
+
+                    <p>
+                        Cake was fresh and delicious.
+                        Delivery was on time.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="review-card">
+
+                    <h5>Rahul Patil</h5>
+
+                    <p>
+                        ⭐⭐⭐⭐⭐
+                    </p>
+
+                    <p>
+                        Beautiful design and amazing taste.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="review-card">
+
+                    <h5>Sneha Joshi</h5>
+
+                    <p>
+                        ⭐⭐⭐⭐⭐
+                    </p>
+
+                    <p>
+                        Best online cake ordering experience.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

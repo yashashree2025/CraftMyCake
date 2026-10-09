@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+
+{% block title %}Customers | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="vendor-section">
+
+<div class="container">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<h1 class="dashboard-title">
+👥 Customers
+</h1>
+
+<span class="badge bg-success fs-6">
+150 Customers
+</span>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="row mb-4">
+
+<div class="col-md-4">
+
+<div class="dashboard-card">
+
+<h2>150</h2>
+
+<p>Total Customers</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="dashboard-card">
+
+<h2>85</h2>
+
+<p>Active Customers</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="dashboard-card">
+
+<h2>420</h2>
+
+<p>Total Orders</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Customer Table -->
+
+<div class="customer-table">
+
+<h3 class="mb-4">
+Customer List
+</h3>
+
+<table class="table table-hover">
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Orders</th>
+<th>Total Spent</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>1</td>
+
+<td>Yashashree Parte</td>
+
+<td>yashashree@gmail.com</td>
+
+<td>9876543210</td>
+
+<td>12</td>
+
+<td>₹8,500</td>
+
+<td>
+
+<button class="btn btn-pink btn-sm">
+
+View Profile
+
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>2</td>
+
+<td>Rahul Sharma</td>
+
+<td>rahul@gmail.com</td>
+
+<td>9876500000</td>
+
+<td>8</td>
+
+<td>₹5,200</td>
+
+<td>
+
+<button class="btn btn-pink btn-sm">
+
+View Profile
+
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>3</td>
+
+<td>Priya Patil</td>
+
+<td>priya@gmail.com</td>
+
+<td>9876111111</td>
+
+<td>15</td>
+
+<td>₹12,300</td>
+
+<td>
+
+<button class="btn btn-pink btn-sm">
+
+View Profile
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- Recent Customer Activity -->
+
+<div class="activity-card mt-4">
+
+<h3>
+📋 Recent Activity
+</h3>
+
+<hr>
+
+<p>🎂 Yashashree ordered Chocolate Truffle Cake</p>
+
+<p>❤️ Rahul ordered Anniversary Cake</p>
+
+<p>🎨 Priya submitted a Custom Cake Request</p>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

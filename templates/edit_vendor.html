@@ -1,0 +1,164 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}Edit Vendor | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<style>
+
+.vendor-card{
+    max-width:850px;
+    margin:auto;
+    background:#fff;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+.vendor-card h2{
+    font-weight:bold;
+    color:#ff4d8d;
+}
+
+.form-label{
+    font-weight:600;
+}
+
+.form-control{
+    border-radius:10px;
+    height:48px;
+}
+
+textarea.form-control{
+    height:120px;
+}
+
+.btn-pink{
+    background:#ff4d8d;
+    color:#fff;
+    border:none;
+}
+
+.btn-pink:hover{
+    background:#e83e7a;
+    color:white;
+}
+
+</style>
+
+<section class="admin-section py-5">
+
+<div class="container">
+
+<div class="vendor-card">
+
+<div class="text-center mb-4">
+
+<h2>✏️ Edit Vendor</h2>
+
+<p class="text-muted">
+Update Vendor Details
+</p>
+
+</div>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Owner Name
+</label>
+
+<input
+type="text"
+name="fullname"
+class="form-control"
+value="{{ vendor.fullname }}"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Email Address
+</label>
+
+<input
+type="email"
+name="email"
+class="form-control"
+value="{{ vendor.email }}"
+required>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Phone Number
+</label>
+
+<input
+type="text"
+name="phone"
+class="form-control"
+value="{{ vendor.phone }}"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Role
+</label>
+
+<input
+type="text"
+class="form-control"
+value="{{ vendor.role }}"
+readonly>
+
+</div>
+
+</div>
+
+<div class="text-center mt-4">
+
+<button
+type="submit"
+class="btn btn-pink btn-lg">
+
+💾 Update Vendor
+
+</button>
+
+<a
+href="{% url 'manage_vendors' %}"
+class="btn btn-secondary btn-lg ms-2">
+
+Cancel
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

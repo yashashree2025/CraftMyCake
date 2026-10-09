@@ -1,0 +1,193 @@
+{% extends 'vendor_base.html' %}
+
+{% block title %}Custom Cake Requests{% endblock %}
+
+{% block content %}
+
+<section class="vendor-section">
+
+<div class="container">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<h1 class="dashboard-title">
+🎨 Custom Cake Requests
+</h1>
+
+<span class="badge bg-primary fs-6">
+{{ requests|length }} New Requests
+</span>
+
+</div>
+
+{% if requests %}
+
+{% for request in requests %}
+
+<div class="request-card shadow p-4 mb-4 rounded">
+
+<div class="row align-items-center">
+
+<div class="col-md-3 text-center">
+
+
+
+{% if request.reference_image %}
+
+<img src="/media/{{ request.reference_image }}"
+     class="img-fluid rounded"
+     style="height:180px;width:180px;object-fit:cover;">
+
+{% else %}
+
+<div class="cake-preview" style="font-size:70px;">
+🎂
+</div>
+
+{% endif %}
+
+<p class="mt-2">
+Reference Image
+</p>
+
+</div>
+
+<div class="col-md-6">
+
+<h4>{{ request.occasion }} Cake</h4>
+
+<p>
+<strong>Customer :</strong>
+{{ request.customer_name }}
+</p>
+
+<p>
+<strong>Email :</strong>
+{{ request.customer_email }}
+</p>
+
+<p>
+<strong>Flavor :</strong>
+{{ request.flavor }}
+</p>
+
+<p>
+<strong>Weight :</strong>
+{{ request.weight }}
+</p>
+
+<p>
+<strong>Shape :</strong>
+{{ request.shape }}
+</p>
+
+<p>
+<strong>Theme :</strong>
+{{ request.theme }}
+</p>
+
+<p>
+<strong>Budget :</strong>
+{{ request.budget }}
+</p>
+
+<p>
+<strong>Message :</strong>
+{{ request.message }}
+</p>
+
+<p>
+<strong>Delivery Date :</strong>
+{{ request.delivery_date }}
+</p>
+
+<p>
+<strong>Delivery Time :</strong>
+{{ request.delivery_time }}
+</p>
+
+<p>
+<strong>Status :</strong>
+
+{% if request.status == "Pending" %}
+
+<span class="badge bg-warning text-dark">
+Pending
+</span>
+
+{% elif request.status == "Accepted" %}
+
+<span class="badge bg-success">
+Accepted
+</span>
+
+{% else %}
+
+<span class="badge bg-danger">
+Rejected
+</span>
+
+{% endif %}
+
+</p>
+
+</div>
+
+<div class="col-md-3">
+
+<form method="POST"
+      action="{% url 'update_custom_request' request.id %}">
+
+{% csrf_token %}
+
+<input type="number"
+       name="price"
+       class="form-control mb-3"
+       placeholder="Enter Price ₹"
+       value="{{ request.price }}">
+
+<button type="submit"
+        name="status"
+        value="Accepted"
+        class="btn btn-success w-100 mb-2">
+
+Accept
+
+</button>
+
+<button type="submit"
+        name="status"
+        value="Rejected"
+        class="btn btn-danger w-100">
+
+Reject
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="alert alert-info text-center">
+
+<h4>No Custom Cake Requests</h4>
+
+<p>No customer has submitted a custom cake request yet.</p>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</section>
+
+{% endblock %}

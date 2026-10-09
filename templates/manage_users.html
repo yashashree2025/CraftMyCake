@@ -1,0 +1,255 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}Manage Users{% endblock %}
+
+{% block content %}
+
+<section class="admin-section py-4">
+
+<div class="container-fluid">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<h1 class="dashboard-title">
+👥 Manage Users
+</h1>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="row mb-4">
+
+<div class="col-md-3">
+
+<div class="admin-card">
+
+<h2>{{ total_users }}</h2>
+
+<p>Total Users</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="admin-card">
+
+<h2>{{ active_users }}</h2>
+
+<p>Active Users</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="admin-card">
+
+<h2>{{ inactive_users }}</h2>
+
+<p>Inactive Users</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="admin-card">
+
+<h2>{{ total_orders }}</h2>
+
+<p>Total Orders</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Search -->
+
+<div class="admin-table mb-4">
+
+<form method="GET">
+
+<div class="row">
+
+<div class="col-md-10">
+
+<input
+type="text"
+name="search"
+class="form-control"
+placeholder="Search User..."
+value="{{ search }}">
+
+</div>
+
+<div class="col-md-2">
+
+<button class="btn btn-pink w-100">
+
+Search
+
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+<!-- Users -->
+
+<div class="admin-table">
+
+<h3 class="mb-4">
+
+Registered Users
+
+</h3>
+
+<table class="table table-hover table-bordered align-middle">
+
+<thead>
+
+<tr>
+
+<th>#</th>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Phone</th>
+
+<th>Orders</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for user in users %}
+
+<tr>
+
+<td>{{ forloop.counter }}</td>
+
+<td>{{ user.fullname }}</td>
+
+<td>{{ user.email }}</td>
+
+<td>{{ user.phone }}</td>
+
+<td>{{ user.orders }}</td>
+
+<td>
+
+<span class="badge bg-success">
+
+Active
+
+</span>
+
+</td>
+
+<td>
+       
+<button
+class="btn btn-primary btn-sm"
+data-bs-toggle="modal"
+data-bs-target="#userModal{{ user.id }}">
+View
+</button>
+
+<a href="{% url 'edit_user' user.id %}"
+class="btn btn-warning btn-sm">
+Edit
+</a>
+
+<a href="{% url 'delete_user' user.id %}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Delete this user?')">
+Delete
+</a>
+
+</td>
+
+</tr>
+
+<!-- View Modal -->
+
+<div class="modal fade" id="userModal{{ user.id }}" tabindex="-1">
+
+<div class="modal-dialog">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<h5>User Details</h5>
+
+<button
+class="btn-close"
+data-bs-dismiss="modal">
+</button>
+
+</div>
+
+<div class="modal-body">
+
+<p><strong>Name :</strong> {{ user.fullname }}</p>
+
+<p><strong>Email :</strong> {{ user.email }}</p>
+
+<p><strong>Phone :</strong> {{ user.phone }}</p>
+
+<p><strong>Role :</strong> {{ user.role }}</p>
+
+<p><strong>Total Orders :</strong> {{ user.orders }}</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<tr>
+
+<td colspan="7" class="text-center">
+
+No Users Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

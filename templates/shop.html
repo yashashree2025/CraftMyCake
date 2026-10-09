@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %}Shop Cakes | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="shop-banner">
+    <div class="container text-center">
+        <h1>Our Delicious Cakes 🎂</h1>
+        <p>Freshly baked cakes for every celebration</p>
+    </div>
+</section>
+
+<section class="shop-section">
+
+    <div class="container">
+
+        <!-- Search -->
+        <form method="GET" action="{% url 'shop' %}">
+    <div class="row mb-5">
+
+        <div class="col-md-8">
+            <input
+                type="text"
+                name="q"
+                value="{{ query }}"
+                class="form-control search-box"
+                placeholder="Search cakes...">
+        </div>
+
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-pink w-100">
+                Search
+            </button>
+        </div>
+
+    </div>
+</form>
+
+        <!-- Categories -->
+        <div class="category-filter text-center mb-5">
+
+        <a href="{% url 'shop' %}"
+        class="btn btn-outline-pink m-1">
+
+        All
+
+        </a>
+
+        <a href="?category=Birthday"
+        class="btn btn-outline-pink m-1">
+
+        Birthday Cake
+
+        </a>
+
+        <a href="?category=Anniversary"
+        class="btn btn-outline-pink m-1">
+
+        Anniversary Cake
+
+        </a>
+
+        <a href="?category=Wedding"
+        class="btn btn-outline-pink m-1">
+
+        Wedding Cake
+
+        </a>
+
+        <a href="?category=Photo"
+        class="btn btn-outline-pink m-1">
+
+        Photo Cake
+
+        </a>
+
+       
+
+        </div>
+
+        <div class="row g-4">
+
+            {% for cake in cakes %}
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="shop-card">
+
+                    <div class="cake-placeholder">
+
+                        {% if cake.image %}
+                           <img src="/media/{{ cake.image }}"
+                                class="img-fluid rounded"
+                                style="height:250px;width:100%;object-fit:cover;">
+                        {% else %}
+                            🎂
+                        {% endif %}
+
+                    </div>
+
+                    <div class="shop-content">
+
+                        <h4>
+                            {{ cake.cake_name }}
+                        </h4>
+
+                        <p>
+                            {{ cake.description }}
+                        </p>
+
+                        <div class="price-row">
+
+                            <span>
+                                ₹{{ cake.price }}
+                            </span>
+
+                            <span>
+                                {{ cake.weight }}
+                            </span>
+
+                        </div>
+
+                        <p class="mt-2">
+                            Flavor :
+                            <strong>
+                                {{ cake.flavor }}
+                            </strong>
+                        </p>
+
+                        <a href="{% url 'cake_details' cake.id %}"
+                           class="btn btn-pink w-100">
+                          View Details
+                        </a>
+                        <a href="{% url 'toggle_favorite' cake.id %}" class="favorite-btn">
+    {% if cake.is_favorite %}
+        <i class="fas fa-heart text-danger"></i>
+    {% else %}
+        <i class="far fa-heart"></i>
+    {% endif %}
+</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12 text-center">
+
+                <h3>
+                    No Cakes Available 🎂
+                </h3>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

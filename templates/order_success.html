@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Placed | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="success-section">
+
+    <div class="container">
+
+        <div class="success-card">
+
+            <div class="success-icon">
+                ✅
+            </div>
+
+            <h1>
+                Order Placed Successfully!
+            </h1>
+
+            <p class="success-message">
+                Thank you for ordering with CraftMyCake.
+                Your delicious cake is being prepared.
+            </p>
+
+            <div class="order-details">
+
+                <div class="detail-box">
+
+                    <h6>Order ID</h6>
+
+                    <h4>#{{ order_id }}</h4>
+
+                </div>
+
+                <div class="detail-box">
+
+                    <h6>Amount Paid</h6>
+
+                    <h4>₹{{ order.total }}</h4>
+
+                </div>
+
+                <div class="detail-box">
+
+                    <h6>Delivery Date</h6>
+
+                    <h4>{{ order.delivery_date }}</h4>
+
+                </div>
+
+            </div>
+
+            <div class="delivery-box">
+
+                <h5>🚚 Estimated Delivery</h5>
+
+                <p>
+                    Your cake will arrive between
+                    <strong>2:00 PM - 4:00 PM</strong>
+                </p>
+
+            </div>
+
+            <div class="success-buttons">
+
+                
+
+                <a href="{% url 'shop' %}"
+                   class="btn btn-outline-pink btn-lg">
+
+                    Continue Shopping
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

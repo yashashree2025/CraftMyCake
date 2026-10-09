@@ -1,0 +1,188 @@
+{% extends 'vendor_base.html' %}
+
+{% block title %}Vendor Orders | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="vendor-section">
+
+<div class="container">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<h1 class="dashboard-title">
+📦 Vendor Orders
+</h1>
+
+<span class="badge bg-danger fs-6">
+{{ orders|length }} Orders
+</span>
+
+</div>
+
+<div class="vendor-table">
+
+<table class="table table-hover align-middle">
+
+<thead>
+
+<tr>
+<th>Order ID</th>
+<th>Customer</th>
+<th>Cake</th>
+<th>Amount</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% if orders %}
+
+{% for order in orders %}
+
+<tr>
+
+<td>#{{ order.id|slice:":6" }}</td>
+
+<td>
+{{ order.customer_name }}
+</td>
+
+<td>
+{{ order.items.0.cake_name }}
+</td>
+
+<td>
+₹{{ order.total }}
+</td>
+
+<td>
+
+<form method="POST"
+      action="{% url 'update_order_status' order.id %}">
+{% csrf_token %}
+
+<input type="hidden"
+       name="order_id"
+       value="{{ order.order_id }}">
+
+<select
+name="status"
+class="form-select">
+
+<option value="Pending"
+{% if order.status == "Pending" %}selected{% endif %}>
+Pending
+</option>
+
+<option value="Accepted"
+{% if order.status == "Accepted" %}selected{% endif %}>
+Accepted
+</option>
+
+<option value="Preparing"
+{% if order.status == "Preparing" %}selected{% endif %}>
+Preparing
+</option>
+
+<option value="Out For Delivery"
+{% if order.status == "Out For Delivery" %}selected{% endif %}>
+Out For Delivery
+</option>
+
+<option value="Delivered"
+{% if order.status == "Delivered" %}selected{% endif %}>
+Delivered
+</option>
+
+<option value="Cancelled"
+{% if order.status == "Cancelled" %}selected{% endif %}>
+Cancelled
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<button
+type="submit"
+class="btn btn-pink btn-sm">
+
+Update
+
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+
+<td colspan="6" class="text-center">
+
+No Orders Found
+
+</td>
+
+</tr>
+
+{% endif %}
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="activity-card mt-4">
+
+<h3>
+📋 Recent Orders
+</h3>
+
+<hr>
+
+{% if orders %}
+
+{% for order in orders|slice:":5" %}
+
+<p>
+
+📦 Order #{{ order.order_id }}
+
+-
+
+{{ order.customer_name }}
+
+-
+
+<strong>{{ order.status }}</strong>
+
+</p>
+
+{% endfor %}
+
+{% else %}
+
+<p>No Recent Orders</p>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

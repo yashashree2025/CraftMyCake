@@ -1,0 +1,568 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<h1 class="dashboard-title mb-4">
+    📊 CraftMyCake Admin Dashboard
+</h1>
+
+<!-- Statistics -->
+
+<div class="row g-4">
+
+<div class="col-md-3">
+
+<div class="admin-card text-center"
+     data-bs-toggle="modal"
+     data-bs-target="#usersModal"
+     style="cursor:pointer;">
+
+<h2>{{ total_users }}</h2>
+
+<p>Total Users</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="admin-card text-center"
+     data-bs-toggle="modal"
+     data-bs-target="#vendorsModal"
+     style="cursor:pointer;">
+
+<h2>{{ total_vendors }}</h2>
+
+<p>Total Vendors</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="admin-card text-center"
+     data-bs-toggle="modal"
+     data-bs-target="#ordersModal"
+     style="cursor:pointer;">
+
+<h2>{{ total_orders }}</h2>
+
+<p>Total Orders</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="admin-card text-center"
+     data-bs-toggle="modal"
+     data-bs-target="#revenueModal"
+     style="cursor:pointer;">
+
+<h2>₹{{ total_revenue }}</h2>
+
+<p>Total Revenue</p>
+
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<!-- Recent Orders -->
+
+<div class="admin-table">
+
+<h3 class="mb-3">
+📦 Recent Orders
+</h3>
+
+<table class="table table-hover">
+
+<thead>
+
+<tr>
+
+<th>Order ID</th>
+<th>Customer</th>
+<th>Cake</th>
+<th>Amount</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for order in recent_orders %}
+
+<tr>
+
+<td>{{ order.id }}</td>
+
+<td>{{ order.customer_name }}</td>
+
+<td>
+
+{% if order.items %}
+{{ order.items.0.cake_name }}
+{% else %}
+-
+{% endif %}
+
+</td>
+
+<td>₹{{ order.total }}</td>
+
+<td>
+
+<span class="badge bg-success">
+
+{{ order.status }}
+
+</span>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="5" class="text-center">
+
+No Orders Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+<br>
+
+<!-- Recent Users -->
+
+<div class="admin-table">
+
+<h3 class="mb-3">
+👥 Recent Users
+</h3>
+
+<table class="table table-hover">
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+<th>Email</th>
+<th>Orders</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for user in recent_users %}
+
+<tr>
+
+<td>{{ user.fullname }}</td>
+
+<td>{{ user.email }}</td>
+
+<td>{{ user.order_count|default:0 }}</td>
+
+<td>
+
+<span class="badge bg-success">
+
+Active
+
+</span>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="4" class="text-center">
+
+No Users Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- ================= USERS MODAL ================= -->
+
+<div class="modal fade" id="usersModal" tabindex="-1">
+
+<div class="modal-dialog modal-xl">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<h5 class="modal-title">👥 Registered Users</h5>
+
+<button type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"></button>
+
+</div>
+
+<div class="modal-body">
+
+<h5 class="mb-3">
+Total Users :
+<span class="text-primary">{{ total_users }}</span>
+</h5>
+
+<table class="table table-hover table-bordered">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>#</th>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Total Orders</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for user in users %}
+
+<tr>
+
+<td>{{ forloop.counter }}</td>
+
+<td>{{ user.fullname }}</td>
+
+<td>{{ user.email }}</td>
+
+<td>{{ user.phone }}</td>
+
+<td>{{ user.orders }}</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="5" class="text-center">
+
+No Users Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- ================= Vendors Modal ================= -->
+
+<div class="modal fade" id="vendorsModal" tabindex="-1">
+
+<div class="modal-dialog modal-xl">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<h5 class="modal-title">
+🏪 Registered Vendors
+</h5>
+
+<button type="button"
+class="btn-close"
+data-bs-dismiss="modal"></button>
+
+</div>
+
+<div class="modal-body">
+
+<h5 class="mb-3">
+
+Total Vendors :
+<span class="text-success">
+{{ total_vendors }}
+</span>
+
+</h5>
+
+<table class="table table-hover table-bordered">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>#</th>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Total Cakes</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for vendor in vendors %}
+
+<tr>
+
+<td>{{ forloop.counter }}</td>
+
+<td>{{ vendor.fullname }}</td>
+
+<td>{{ vendor.email }}</td>
+
+<td>{{ vendor.phone }}</td>
+
+<td>{{ vendor.cakes }}</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="5" class="text-center">
+
+No Vendors Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= Orders Modal ================= -->
+
+<div class="modal fade" id="ordersModal" tabindex="-1">
+
+<div class="modal-dialog modal-xl">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<h5 class="modal-title">
+📦 All Orders
+</h5>
+
+<button type="button"
+class="btn-close"
+data-bs-dismiss="modal"></button>
+
+</div>
+
+<div class="modal-body">
+
+<h5>
+
+Total Orders :
+<span class="text-danger">
+
+{{ total_orders }}
+
+</span>
+
+</h5>
+
+<table class="table table-hover table-bordered">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>ID</th>
+<th>Customer</th>
+<th>Cake</th>
+<th>Amount</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for order in orders %}
+
+<tr>
+
+<td>{{ order.id }}</td>
+
+<td>{{ order.customer_name }}</td>
+
+<td>
+
+{% if order.items %}
+
+{{ order.items.0.cake_name }}
+
+{% else %}
+
+-
+
+{% endif %}
+
+</td>
+
+<td>
+
+₹{{ order.total }}
+
+</td>
+
+<td>
+
+<span class="badge bg-success">
+
+{{ order.status }}
+
+</span>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="5" class="text-center">
+
+No Orders Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= Revenue Modal ================= -->
+
+<div class="modal fade" id="revenueModal" tabindex="-1">
+
+<div class="modal-dialog">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<h5 class="modal-title">
+
+💰 Revenue Report
+
+</h5>
+
+<button type="button"
+class="btn-close"
+data-bs-dismiss="modal"></button>
+
+</div>
+
+<div class="modal-body text-center">
+
+<h2 class="text-success">
+
+₹{{ total_revenue }}
+
+</h2>
+
+<hr>
+
+<p><b>Total Users :</b> {{ total_users }}</p>
+
+<p><b>Total Vendors :</b> {{ total_vendors }}</p>
+
+<p><b>Total Orders :</b> {{ total_orders }}</p>
+
+<p><b>Total Cakes :</b> {{ total_cakes }}</p>
+
+<p><b>Total Contacts :</b> {{ total_contacts }}</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

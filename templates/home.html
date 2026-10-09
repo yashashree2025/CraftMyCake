@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}CraftMyCake{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div class="col-lg-6">
+                <span class="hero-tag">
+                    ✨ Freshly Baked Everyday
+                </span>
+
+                <h1 class="hero-title">
+                    Make Every Celebration
+                    <span>Extra Sweet</span>
+                </h1>
+
+                <p class="hero-text">
+                    Discover beautiful cakes crafted with love.
+                    Customize cakes for birthdays, weddings,
+                    anniversaries and special moments.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="{% url 'shop' %}" class="btn btn-pink">
+                    Order Cake
+                    </a>
+
+                    <a href="{% url 'customize_cake' %}" class="btn btn-outline-pink">
+                    Custom Cake
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-6 text-center">
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587"
+                     class="hero-image"
+                     alt="Cake">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features-section">
+    <div class="container">
+        <div class="row text-center">
+
+            <div class="col-md-3">
+                <div class="feature-box">
+                    🚚 Same Day Delivery
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="feature-box">
+                    🎂 Custom Cakes
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="feature-box">
+                    ⭐ Premium Quality
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="feature-box">
+                    💳 Secure Payments
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Categories -->
+<section class="section-space">
+    <div class="container">
+
+        <h2 class="section-title">
+            Popular Categories
+        </h2>
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="category-card">
+                    🎉
+                    <h5>Birthday Cakes</h5>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="category-card">
+                    💍
+                    <h5>Wedding Cakes</h5>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="category-card">
+                    ❤️
+                    <h5>Anniversary Cakes</h5>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="category-card">
+                    📸
+                    <h5>Photo Cakes</h5>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}Login | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="login-section py-5">
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-5">
+
+        <div class="login-card p-4 shadow rounded bg-white">
+
+            <div class="text-center mb-4">
+
+                <h2>Welcome Back 🎂</h2>
+
+                <p>Login to your CraftMyCake account</p>
+
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+
+                    {% if message.tags == "error" %}
+
+                    <div class="alert alert-danger alert-dismissible fade show">
+
+                        {{ message }}
+
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="alert">
+                        </button>
+
+                    </div>
+
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="/login/">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+
+                    <label>Email Address</label>
+
+                    <input type="email"
+                           class="form-control"
+                           name="email"
+                           placeholder="Enter Email"
+                           required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Password</label>
+
+                    <div class="input-group">
+
+                        <input type="password"
+                               id="password"
+                               class="form-control"
+                               name="password"
+                               placeholder="Enter Password"
+                               required>
+
+                        <button type="button"
+                                class="btn btn-outline-secondary"
+                                onclick="togglePassword()">
+
+                            👁
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-between mb-4">
+
+                    
+                    <a href="{% url 'forgot_password' %}"
+                       class="forgot-link">
+
+                        Forgot Password?
+
+                    </a>
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-pink w-100">
+
+                    Login
+
+                </button>
+
+            </form>
+
+            <div class="text-center mt-4">
+
+                Don't have an account?
+
+                <a href="{% url 'signup' %}"
+                   class="signup-link">
+
+                    Create Account
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+</section>
+
+<script>
+
+function togglePassword() {
+
+    let password = document.getElementById("password");
+
+    if (password.type === "password") {
+
+        password.type = "text";
+
+    } else {
+
+        password.type = "password";
+
+    }
+}
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+<h2>Edit User</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="mb-3">
+<label>Full Name</label>
+<input type="text"
+name="fullname"
+class="form-control"
+value="{{ user.fullname }}">
+</div>
+
+<div class="mb-3">
+<label>Email</label>
+<input type="email"
+name="email"
+class="form-control"
+value="{{ user.email }}">
+</div>
+
+<div class="mb-3">
+<label>Phone</label>
+<input type="text"
+name="phone"
+class="form-control"
+value="{{ user.phone }}">
+</div>
+
+<button class="btn btn-success">
+Update User
+</button>
+
+<a href="{% url 'manage_users' %}"
+class="btn btn-secondary">
+Cancel
+</a>
+
+</form>
+
+</div>
+
+{% endblock %}

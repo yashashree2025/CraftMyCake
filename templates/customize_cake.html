@@ -1,0 +1,406 @@
+{% extends 'base.html' %}
+
+{% block title %}Cake Design Studio{% endblock %}
+
+{% block content %}
+
+<section class="designer-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <span class="designer-tag">
+                ✨ Premium Cake Designer
+            </span>
+
+            <h1 class="designer-title">
+                Design Your Dream Cake 🎂
+            </h1>
+
+            <p class="designer-subtitle">
+                Create a unique cake for your special celebration
+            </p>
+
+        </div>
+
+        <div class="row">
+
+            <!-- LEFT PANEL -->
+
+            <div class="col-lg-7">
+
+                <div class="designer-card">
+
+                    <form method="POST" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        <!-- Occasion -->
+
+                        <h5 class="section-heading">
+                            Occasion
+                        </h5>
+
+                        <select
+                            name="occasion"
+                            class="form-select">
+
+                            <option>Birthday</option>
+                            <option>Anniversary</option>
+                            <option>Wedding</option>
+                            <option>Baby Shower</option>
+
+                        </select>
+
+                        <!-- Shape -->
+
+                        <h5 class="section-heading mt-4">
+                            Cake Shape
+                        </h5>
+
+                        <select name="shape" class="form-select" id="shape">
+    <option value="Round">⭕ Round</option>
+    <option value="Heart">❤️ Heart</option>
+    <option value="Square">⬜ Square</option>
+    <option value="Rectangle">▭ Rectangle</option>
+    <option value="Hexagon">⬢ Hexagon</option>
+    <option value="Two Tier">🎂 Two Tier</option>
+    <option value="Three Tier">🏰 Three Tier</option>
+    
+</select>
+
+                        <!-- Flavor -->
+
+                        <h5 class="section-heading mt-4">
+                            Flavor
+                        </h5>
+
+                        <select
+                            name="flavor"
+                            class="form-select">
+
+                            <option>Chocolate</option>
+                            <option>Vanilla</option>
+                            <option>Butterscotch</option>
+                            <option>Strawberry</option>
+                            <option>Red Velvet</option>
+
+                        </select>
+
+                        <!-- Weight -->
+
+                        <h5 class="section-heading mt-4">
+                            Weight
+                        </h5>
+
+                        <select
+                            name="weight"
+                            class="form-select">
+
+                            <option>500 gm</option>
+                            <option>1 Kg</option>
+                            <option>2 Kg</option>
+                            <option>3 Kg</option>
+
+                        </select>
+
+                        <!-- Theme -->
+
+                        <h5 class="section-heading mt-4">
+                            Theme
+                        </h5>
+
+                        <select
+                            name="theme"
+                            class="form-select">
+
+                            <option>Princess</option>
+                            <option>Floral</option>
+                            <option>Superhero</option>
+                            <option>Luxury</option>
+
+                        </select>
+
+                        <!-- Budget -->
+
+                        <h5 class="section-heading mt-4">
+                            Budget Range
+                        </h5>
+
+                        <select
+                            name="budget"
+                            class="form-select">
+
+                            <option>₹500 - ₹1000</option>
+                            <option>₹1000 - ₹2000</option>
+                            <option>₹2000 - ₹5000</option>
+                            <option>₹5000+</option>
+
+                        </select>
+
+                        <!-- Upload -->
+
+                        <h5 class="section-heading mt-4">
+                            Upload Inspiration Image
+                        </h5>
+
+                        <input
+                            type="file"
+                            name="reference_image"
+                            class="form-control">
+
+                        <!-- Message -->
+
+                        <h5 class="section-heading mt-4">
+                            Message On Cake
+                        </h5>
+
+                        <textarea
+                            name="message"
+                            rows="4"
+                            class="form-control"
+                            placeholder="Happy Birthday Yashashree"></textarea>
+
+                        <!-- Delivery -->
+
+                        <div class="row mt-4">
+
+                            <div class="col-md-6">
+
+                                <label>
+                                    Delivery Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    name="delivery_date"
+                                    class="form-control">
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label>
+                                    Delivery Time
+                                </label>
+
+                                <input
+                                    type="time"
+                                    name="delivery_time"
+                                    class="form-control">
+
+                            </div>
+
+                        </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT PANEL -->
+
+            <div class="col-lg-5">
+
+                <div class="cake-preview">
+
+    <img
+        id="previewImage"
+        src=""
+        style="width:180px;height:180px;display:none;border-radius:15px;object-fit:cover;">
+
+    <div
+        id="cakeEmoji"
+        style="font-size:90px;">
+
+        🎂
+
+    </div>
+
+</div>
+
+<div class="preview-info">
+
+<p><strong>Occasion:</strong>
+<span id="previewOccasion">Birthday</span></p>
+
+<p><strong>Shape:</strong>
+<span id="previewShape">Round</span></p>
+
+<p><strong>Flavor:</strong>
+<span id="previewFlavor">Chocolate</span></p>
+
+<p><strong>Weight:</strong>
+<span id="previewWeight">1 Kg</span></p>
+
+<p><strong>Theme:</strong>
+<span id="previewTheme">Floral</span></p>
+
+<p>
+
+<strong>Message:</strong>
+
+<span id="previewMessage">
+
+Happy Birthday
+
+</span>
+
+</p>
+
+</div>
+
+<div class="price-box">
+
+Estimated Price
+
+<h2>
+
+₹<span id="previewPrice">1299</span>
+
+</h2>
+
+</div>
+                    <button
+                        type="submit"
+                        class="btn btn-pink btn-lg w-100">
+
+                        Submit Custom Cake Request
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+<script>
+
+const occasion=document.querySelector("[name='occasion']");
+const shape=document.querySelector("[name='shape']");
+const flavor=document.querySelector("[name='flavor']");
+const weight=document.querySelector("[name='weight']");
+const theme=document.querySelector("[name='theme']");
+const message=document.querySelector("[name='message']");
+const image=document.querySelector("[name='reference_image']");
+
+occasion.onchange=function(){
+
+document.getElementById("previewOccasion").innerHTML=this.value;
+
+}
+
+shape.onchange=function(){
+
+document.getElementById("previewShape").innerHTML=this.value;
+
+}
+
+flavor.onchange=function(){
+
+document.getElementById("previewFlavor").innerHTML=this.value;
+
+}
+
+weight.onchange=function(){
+
+document.getElementById("previewWeight").innerHTML=this.value;
+
+if(this.value=="500 gm"){
+
+document.getElementById("previewPrice").innerHTML="699";
+
+}
+
+else if(this.value=="1 Kg"){
+
+document.getElementById("previewPrice").innerHTML="1299";
+
+}
+
+else if(this.value=="2 Kg"){
+
+document.getElementById("previewPrice").innerHTML="2199";
+
+}
+
+else if(this.value=="3 Kg"){
+
+document.getElementById("previewPrice").innerHTML="3299";
+
+}
+
+}
+
+theme.onchange=function(){
+
+document.getElementById("previewTheme").innerHTML=this.value;
+
+let emoji="🎂";
+
+if(this.value=="Princess"){
+
+emoji="👑";
+
+}
+
+else if(this.value=="Floral"){
+
+emoji="🌸";
+
+}
+
+else if(this.value=="Superhero"){
+
+emoji="🦸";
+
+}
+
+else if(this.value=="Luxury"){
+
+emoji="✨";
+
+}
+
+document.getElementById("cakeEmoji").innerHTML=emoji;
+
+}
+
+message.onkeyup=function(){
+
+document.getElementById("previewMessage").innerHTML=this.value;
+
+}
+
+image.onchange=function(e){
+
+const file=e.target.files[0];
+
+if(file){
+
+const reader=new FileReader();
+
+reader.onload=function(event){
+
+document.getElementById("previewImage").src=event.target.result;
+
+document.getElementById("previewImage").style.display="block";
+
+document.getElementById("cakeEmoji").style.display="none";
+
+}
+
+reader.readAsDataURL(file);
+
+}
+
+}
+
+</script>
+{% endblock %}

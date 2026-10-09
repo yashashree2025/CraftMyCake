@@ -1,0 +1,243 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}Manage Vendors{% endblock %}
+
+{% block content %}
+
+<section class="admin-section py-5">
+
+<div class="container-fluid">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<h1 class="dashboard-title">
+🏪 Manage Vendors
+</h1>
+
+<a href="{% url 'add_vendor' %}" class="btn btn-pink">
++ Add Vendor
+</a>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="row mb-4">
+
+<div class="col-md-3">
+
+<div class="admin-card">
+
+<h2>{{ total_vendors }}</h2>
+
+<p>Total Vendors</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="admin-card">
+
+<h2>{{ approved_vendors }}</h2>
+
+<p>Approved Vendors</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="admin-card">
+
+<h2>{{ pending_vendors }}</h2>
+
+<p>Pending Approval</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="admin-card">
+
+<h2>{{ total_cakes }}</h2>
+
+<p>Total Cakes</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Search -->
+
+<div class="admin-table mb-4">
+
+<form method="GET">
+
+<div class="input-group">
+
+<input
+type="text"
+name="search"
+class="form-control"
+placeholder="Search Vendor..."
+value="{{ search }}">
+
+<button class="btn btn-pink">
+Search
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+<!-- Vendor Table -->
+
+<div class="admin-table">
+
+<h3 class="mb-4">
+Vendor List
+</h3>
+
+<table class="table table-hover">
+
+<thead>
+
+<tr>
+
+<th>#</th>
+<th>Shop Name</th>
+<th>Owner</th>
+<th>Email</th>
+<th>Total Cakes</th>
+<th>Total Orders</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for vendor in vendors %}
+
+<tr>
+
+
+<td>{{ forloop.counter }}</td>
+
+<td>CraftMyCake Vendor</td>
+
+<td>{{ vendor.fullname }}</td>
+
+<td>{{ vendor.email }}</td>
+
+<td>{{ vendor.cake_count }}</td>
+
+<td>{{ vendor.order_count }}</td>
+
+<td>
+
+<span class="badge bg-success">
+
+Approved
+
+</span>
+
+</td>
+
+<td>
+
+<button
+class="btn btn-primary btn-sm"
+data-bs-toggle="modal"
+data-bs-target="#vendorModal{{ vendor.id }}">
+View
+</button>
+
+<a href="{% url 'edit_vendor' vendor.id %}"
+class="btn btn-warning btn-sm">
+Edit
+</a>
+
+<a href="{% url 'delete_vendor' vendor.id %}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Delete this vendor?')">
+Delete
+</a>
+
+</td>
+
+</tr>
+
+<div class="modal fade" id="vendorModal{{ vendor.id }}" tabindex="-1">
+
+<div class="modal-dialog">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<h5>Vendor Details</h5>
+
+<button class="btn-close"
+data-bs-dismiss="modal"></button>
+
+</div>
+
+<div class="modal-body">
+
+<p><strong>Name :</strong> {{ vendor.fullname }}</p>
+
+<p><strong>Email :</strong> {{ vendor.email }}</p>
+
+<p><strong>Phone :</strong> {{ vendor.phone }}</p>
+
+<p><strong>Total Cakes :</strong> {{ vendor.cake_count }}</p>
+
+<p><strong>Total Orders :</strong> {{ vendor.order_count }}</p>
+
+<p><strong>Status :</strong> Approved</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<tr>
+
+<td colspan="8" class="text-center text-danger">
+
+No Vendors Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

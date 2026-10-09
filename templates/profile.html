@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="profile-section">
+
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Left Sidebar -->
+
+            <div class="col-lg-4">
+                {% include 'profile_sidebar.html' %}
+            </div>
+
+            <!-- Right Content -->
+
+            <div class="col-lg-8">
+
+                <!-- Welcome Card -->
+
+                <div class="welcome-card">
+
+                    <h2>
+                 Welcome Back {{ user.fullname }} 🎂
+                    </h2>
+                    <p>
+                        Manage your account, orders and favorite cakes.
+                    </p>
+
+                </div>
+
+                <!-- Stats -->
+
+                <div class="row mt-4">
+
+                    <div class="col-md-4">
+
+                        <div class="stat-card">
+
+                            <h1>{{ total_orders }}</h1>
+
+                            <p>Total Orders</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="stat-card">
+
+                            <h1>{{ favorite_count }}</h1>
+
+                            <p>Favorite Cakes</p>
+
+                        </div>
+
+                    </div>
+
+                    
+
+                </div>
+               
+                    <!-- Saved Address -->
+
+                    <div class="address-card">
+
+                        <h3>
+                            📍 Saved Address
+                        </h3>
+
+                        <hr>
+
+                        {% if user.address %}
+
+                            <p>
+
+                                <strong>Address:</strong><br>
+
+                                {{ user.address }}<br>
+
+                                {{ user.city }}, {{ user.state }}<br>
+
+                                {{ user.pincode }}
+
+                            </p>
+
+                            <a href="{% url 'saved_address' %}"
+                            class="btn btn-pink btn-sm mt-3">
+
+                                Update Address
+
+                            </a>
+
+                        {% else %}
+
+                            <p>No Saved Address</p>
+
+                            <a href="{% url 'saved_address' %}"
+                            class="btn btn-pink btn-sm mt-3">
+
+                                Add Address
+
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+                                    
+
+                
+                    
+                    
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

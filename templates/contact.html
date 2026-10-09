@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="contact-section py-5">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+<h1 class="display-4 fw-bold">
+📞 Contact Us
+</h1>
+
+<p>
+We would love to hear from you.
+</p>
+
+</div>
+
+<div class="row">
+
+<div class="col-lg-6">
+
+<div class="contact-card">
+
+<h3>Send Message</h3>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="mb-3">
+
+<input
+type="text"
+name="name"
+class="form-control"
+placeholder="Your Name"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<input
+type="email"
+name="email"
+class="form-control"
+placeholder="Your Email"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<input
+type="text"
+name="subject"
+class="form-control"
+placeholder="Subject"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<textarea
+name="message"
+class="form-control"
+rows="5"
+placeholder="Write your message"
+required></textarea>
+
+</div>
+
+<button
+type="submit"
+class="btn btn-pink">
+
+Send Message
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<div class="col-lg-6">
+
+<div class="contact-card">
+
+<h3>Contact Information</h3>
+
+<hr>
+
+<p>📍 Pune, Maharashtra</p>
+
+<p>📞 +91 9876543210</p>
+
+<p>📧 support@craftmycake.com</p>
+
+<p>🕒 Mon - Sun : 9 AM - 10 PM</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

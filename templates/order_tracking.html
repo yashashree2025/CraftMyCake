@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+
+{% block title %}Track Order | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="track-section">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+<h1 class="track-title">
+🚚 Track Your Order
+</h1>
+
+<p>
+Stay updated with your cake delivery status
+</p>
+
+</div>
+
+{% if order %}
+
+<!-- Order Details -->
+
+<div class="track-card">
+
+<div class="row">
+
+<div class="col-md-4">
+
+<div class="info-box">
+
+<h6>Order ID</h6>
+
+<h4>#{{ order.id }}</h4>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="info-box">
+
+<h6>Order Date</h6>
+
+<h4>{{ order.order_date }}</h4>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="info-box">
+
+<h6>Total Amount</h6>
+
+<h4>₹{{ order.total }}</h4>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Cake Details -->
+
+{% for item in order.items %}
+
+<div class="cake-track-card mb-4">
+
+<div class="cake-icon">
+
+{% if item.image %}
+<img src="/media/{{ item.image }}"
+style="width:120px;height:120px;border-radius:10px;object-fit:cover;">
+{% else %}
+🎂
+{% endif %}
+
+</div>
+
+<div>
+
+<h3>{{ item.cake_name }}</h3>
+
+<p>
+
+{{ item.weight }}
+
+•
+
+{{ item.flavor }}
+
+</p>
+
+<p>
+
+Quantity :
+<strong>{{ item.quantity }}</strong>
+
+</p>
+
+<span class="status-badge">
+
+{{ order.status }}
+
+</span>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+<!-- Timeline -->
+
+<div class="timeline-card">
+
+<h3 class="mb-4">
+
+Order Progress
+
+</h3>
+
+<div class="timeline">
+
+<div class="timeline-item {% if order.status == 'Pending' or order.status == 'Accepted' or order.status == 'Preparing' or order.status == 'Out For Delivery' or order.status == 'Delivered' %}completed{% endif %}">
+
+<div class="circle">✓</div>
+
+<div class="content">
+
+<h5>Order Confirmed</h5>
+
+<p>{{ order.order_date }}</p>
+
+</div>
+
+</div>
+
+<div class="timeline-item {% if order.status == 'Preparing' or order.status == 'Out For Delivery' or order.status == 'Delivered' %}completed{% endif %}">
+
+<div class="circle">🎂</div>
+
+<div class="content">
+
+<h5>Cake Preparing</h5>
+
+</div>
+
+</div>
+
+<div class="timeline-item {% if order.status == 'Out For Delivery' or order.status == 'Delivered' %}completed{% endif %}">
+
+<div class="circle">🚚</div>
+
+<div class="content">
+
+<h5>Out For Delivery</h5>
+
+</div>
+
+</div>
+
+<div class="timeline-item {% if order.status == 'Delivered' %}completed{% endif %}">
+
+<div class="circle">🎉</div>
+
+<div class="content">
+
+<h5>Delivered</h5>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Delivery Information -->
+
+<div class="delivery-card">
+
+<h3>Delivery Information</h3>
+
+<div class="delivery-info">
+
+<div>
+
+<h4>{{ order.customer_name }}</h4>
+
+<p>{{ order.mobile }}</p>
+
+<p>{{ order.address }}</p>
+
+<p>{{ order.city }}, {{ order.state }} - {{ order.pincode }}</p>
+
+<p>
+
+Delivery Date :
+
+<strong>{{ order.delivery_date }}</strong>
+
+</p>
+
+<p>
+
+Delivery Time :
+
+<strong>{{ order.delivery_time }}</strong>
+
+</p>
+
+<p>
+
+Payment :
+
+<strong>{{ order.payment_method }}</strong>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+{% else %}
+
+<div class="alert alert-warning text-center">
+
+<h3>No Orders Found</h3>
+
+<a href="{% url 'shop' %}" class="btn btn-pink mt-3">
+
+Shop Now
+
+</a>
+
+</div>
+
+{% endif %}
+
+<div class="text-center mt-5">
+
+<a href="{% url 'shop' %}" class="btn btn-outline-pink btn-lg">
+
+Continue Shopping
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

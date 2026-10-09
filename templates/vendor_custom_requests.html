@@ -1,0 +1,62 @@
+<h2>Custom Requests</h2>
+
+<table border="1" width="100%">
+
+<tr>
+    <th>User</th>
+    <th>Theme</th>
+    <th>Weight</th>
+    <th>Budget</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+{% for req in requests %}
+
+<tr>
+    <td>{{ req.customer_name }}</td>
+    <td>{{ req.theme }}</td>
+    <td>{{ req.weight }}</td>
+    <td>{{ req.budget }}</td>
+    <td>{{ req.status }}</td>
+
+    <td>
+
+        {% if req.status == "Pending" %}
+
+        <form method="POST" action="/update-custom-request/{{req.id}}/">
+            {% csrf_token %}
+
+            <input type="number" name="price" placeholder="Enter Price">
+
+            <button name="status" value="Quoted">
+                Send Quote
+            </button>
+
+            <button name="status" value="Rejected">
+                Reject
+            </button>
+
+        </form>
+
+        {% elif req.status == "Quoted" %}
+
+        <p>Waiting for customer response</p>
+
+        {% elif req.status == "Accepted" %}
+
+        <p>✔ Accepted by Customer</p>
+
+        {% elif req.status == "Rejected" %}
+
+        <p>❌ Rejected</p>
+
+        {% endif %}
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>

@@ -1,0 +1,269 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}Admin Orders | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="admin-section py-5">
+
+<div class="container-fluid">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<h1 class="dashboard-title">
+📦 Order Management
+</h1>
+
+<span class="badge bg-danger fs-6">
+{{ total_orders }} Total Orders
+</span>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="row mb-4">
+
+<div class="col-md-3">
+<div class="admin-card">
+<h2>{{ total_orders }}</h2>
+<p>Total Orders</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="admin-card">
+<h2>{{ pending_orders }}</h2>
+<p>Pending</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="admin-card">
+<h2>{{ delivered_orders }}</h2>
+<p>Delivered</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="admin-card">
+<h2>₹{{ total_revenue }}</h2>
+<p>Total Revenue</p>
+</div>
+</div>
+
+</div>
+
+<!-- Search -->
+
+<div class="admin-table mb-4">
+
+<form method="GET">
+
+<div class="row">
+
+<div class="col-md-8">
+
+<input
+type="text"
+name="search"
+class="form-control"
+placeholder="Search Customer..."
+value="{{ search }}">
+
+</div>
+
+<div class="col-md-3">
+
+<select
+name="status"
+class="form-control">
+
+<option>All Orders</option>
+
+<option {% if status == "Pending" %}selected{% endif %}>
+Pending
+</option>
+
+<option {% if status == "Preparing" %}selected{% endif %}>
+Preparing
+</option>
+
+<option {% if status == "Out For Delivery" %}selected{% endif %}>
+Out For Delivery
+</option>
+
+<option {% if status == "Delivered" %}selected{% endif %}>
+Delivered
+</option>
+
+</select>
+
+</div>
+
+<div class="col-md-1">
+
+<button class="btn btn-pink w-100">
+Go
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+<!-- Orders Table -->
+
+<div class="admin-table">
+
+<h3 class="mb-4">
+
+Recent Orders
+
+</h3>
+
+<table class="table table-hover align-middle">
+
+<thead>
+
+<tr>
+
+<th>#</th>
+<th>Customer</th>
+<th>Vendor</th>
+<th>Cake</th>
+<th>Amount</th>
+<th>Payment</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for order in orders %}
+
+<tr>
+
+<td>{{ forloop.counter }}</td>
+
+<td>{{ order.customer_name }}</td>
+
+<td>{{ order.vendor_email }}</td>
+
+<td>
+
+{% if order.items %}
+
+{{ order.items.0.cake_name }}
+
+{% endif %}
+
+</td>
+
+<td>
+
+₹{{ order.total }}
+
+</td>
+
+<td>
+
+{% if order.payment_method == "COD" %}
+
+<span class="badge bg-warning text-dark">
+
+COD
+
+</span>
+
+{% else %}
+
+<span class="badge bg-success">
+
+Paid
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<form method="POST" action="{% url 'update_order_status' order.id %}">
+
+{% csrf_token %}
+
+<select
+name="status"
+class="form-select">
+
+<option value="Pending"
+{% if order.status == "Pending" %}selected{% endif %}>
+Pending
+</option>
+
+<option value="Preparing"
+{% if order.status == "Preparing" %}selected{% endif %}>
+Preparing
+</option>
+
+<option value="Out For Delivery"
+{% if order.status == "Out For Delivery" %}selected{% endif %}>
+Out For Delivery
+</option>
+
+<option value="Delivered"
+{% if order.status == "Delivered" %}selected{% endif %}>
+Delivered
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<button class="btn btn-pink btn-sm">
+
+Update
+
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="8" class="text-center">
+
+No Orders Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

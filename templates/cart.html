@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block title %}My Cart | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="cart-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h1 class="cart-title">
+                🛒 My Cart
+            </h1>
+
+            <p>
+                Review your selected cakes before checkout
+            </p>
+
+        </div>
+
+        <div class="row">
+
+            <!-- Cart Items -->
+            <div class="col-lg-8">
+
+                {% if cart_items %}
+
+                    {% for item in cart_items %}
+
+                    <div class="cart-item mb-4">
+
+                        <div class="cart-image">
+
+                            {% if item.image %}
+                                <img src="/media/{{ item.image }}"
+                                     style="width:120px;height:120px;object-fit:cover;border-radius:10px;">
+                            {% else %}
+                                🎂
+                            {% endif %}
+
+                        </div>
+
+                        <div class="cart-info">
+
+                            <h4>{{ item.cake_name }}</h4>
+
+                            <p>
+                                Flavor :
+                                <strong>{{ item.flavor }}</strong>
+                            </p>
+
+                            <p>
+                                Weight :
+                                <strong>{{ item.weight }}</strong>
+                            </p>
+
+                           
+
+                            <h5>
+                                ₹{{ item.price }}
+                            </h5>
+
+                        </div>
+
+                        <div class="cart-actions">
+
+    <div class="d-flex align-items-center">
+
+    <a href="{% url 'decrease_quantity' item.id %}"
+       class="btn btn-outline-secondary">
+
+        -
+
+    </a>
+
+    <input
+        type="text"
+        value="{{ item.quantity }}"
+        class="form-control text-center mx-2"
+        style="width:60px;"
+        readonly>
+
+    <a href="{% url 'increase_quantity' item.id %}"
+       class="btn btn-outline-secondary">
+
+        +
+
+    </a>
+
+</div>
+
+    <br><br>
+
+    <a href="{% url 'remove_from_cart' item.id %}"
+       class="btn btn-danger btn-sm">
+
+       Remove
+
+    </a>
+
+</div>
+
+                    </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="alert alert-info text-center">
+
+                        <h4>Your cart is empty 🛒</h4>
+
+                        <a href="{% url 'shop' %}" class="btn btn-pink mt-3">
+                            Continue Shopping
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            <!-- Order Summary -->
+
+            <div class="col-lg-4">
+
+                <div class="summary-card">
+
+                    <h3>
+                        Order Summary
+                    </h3>
+
+                    <hr>
+
+                    <div class="summary-row">
+
+                        <span>Subtotal</span>
+
+                        <span>₹{{ subtotal }}</span>
+
+                    </div>
+
+                    <div class="summary-row">
+
+                   <span>Delivery</span>
+
+                   <span>Free</span>
+
+                  </div>
+
+                    
+                    <hr>
+
+                    <div class="summary-row total">
+
+                        <span>Total</span>
+
+                        <span>₹{{ total }}</span>
+
+                    </div>
+
+
+                    <a href="{% url 'checkout' %}"
+                       class="btn btn-pink w-100 mt-3">
+
+                        Proceed To Checkout
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

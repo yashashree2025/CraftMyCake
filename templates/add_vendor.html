@@ -1,0 +1,221 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}Add Vendor | CraftMyCake{% endblock %}
+
+{% block content %}
+
+<section class="admin-section py-5">
+
+<div class="container">
+
+<div class="vendor-form-card">
+
+<div class="text-center mb-4">
+
+<h1 class="dashboard-title">
+🏪 Add New Vendor
+</h1>
+
+<p>
+Create a new vendor account for CraftMyCake
+</p>
+
+</div>
+
+<form method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Shop Name
+</label>
+
+<input
+type="text"
+name="shop_name"
+class="form-control"
+placeholder="Enter Shop Name"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Owner Name
+</label>
+
+<input
+type="text"
+name="fullname"
+class="form-control"
+placeholder="Enter Owner Name"
+required>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Email Address
+</label>
+
+<input
+type="email"
+name="email"
+class="form-control"
+placeholder="Enter Email"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Mobile Number
+</label>
+
+<input
+type="text"
+name="phone"
+class="form-control"
+placeholder="Enter Mobile Number"
+required>
+
+</div>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+Shop Address
+</label>
+
+<textarea
+name="address"
+class="form-control"
+rows="4"
+placeholder="Enter Shop Address"></textarea>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Shop Logo
+</label>
+
+<input
+type="file"
+name="logo"
+class="form-control">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Shop Banner
+</label>
+
+<input
+type="file"
+name="banner"
+class="form-control">
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Password
+</label>
+
+<input
+type="password"
+name="password"
+class="form-control"
+placeholder="Create Password"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Confirm Password
+</label>
+
+<input
+type="password"
+name="confirm_password"
+class="form-control"
+placeholder="Confirm Password"
+required>
+
+</div>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+Vendor Status
+</label>
+
+<select
+name="status"
+class="form-control">
+
+<option value="Approved">Approved</option>
+<option value="Pending">Pending</option>
+<option value="Inactive">Inactive</option>
+
+</select>
+
+</div>
+
+<div class="text-center mt-4">
+
+<button
+type="submit"
+class="btn btn-pink btn-lg">
+
+Save Vendor
+
+</button>
+
+<a
+href="{% url 'manage_vendors' %}"
+class="btn btn-outline-pink btn-lg">
+
+Back
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}
